@@ -8,5 +8,13 @@
 			<property name="name" value="lili"/>
 			<property name="age" value="18"/>
 		</bean>
+
+		<bean name="personFactoryBean" class="pers.ljf.spring.debug.factory.PersonFactoryBean">
+
+		</bean>
+
+		<bean name="personAware" class="pers.ljf.spring.debug.entity.PersonAware">
+
+		</bean>
 	</beans>
 </beans>
