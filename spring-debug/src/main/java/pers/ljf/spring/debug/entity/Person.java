@@ -3,7 +3,7 @@ package pers.ljf.spring.debug.entity;
 /**
  * @author: ljf
  * @date: 2021/3/24 6:45
- * @description: TODO
+ * @description:
  * @modified By:
  * @version: $ 1.0
  */

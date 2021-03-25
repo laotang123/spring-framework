@@ -4,17 +4,27 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<beans>
-		<bean name="person" class="pers.ljf.spring.debug.entity.Person">
-			<property name="name" value="lili"/>
-			<property name="age" value="18"/>
-		</bean>
+<!--		<bean name="person" class="pers.ljf.spring.debug.entity.Person">-->
+<!--			<property name="name" value="lili"/>-->
+<!--			<property name="age" value="18"/>-->
+<!--		</bean>-->
 
-		<bean name="personFactoryBean" class="pers.ljf.spring.debug.factory.PersonFactoryBean">
+<!--		<bean name="personFactoryBean" class="pers.ljf.spring.debug.factory.PersonFactoryBean">-->
 
-		</bean>
+<!--		</bean>-->
 
-		<bean name="personAware" class="pers.ljf.spring.debug.entity.PersonAware">
+<!--		<bean name="personAware" class="pers.ljf.spring.debug.entity.PersonAware">-->
 
+<!--		</bean>-->
+
+<!--		<bean name="personDestroy" class="pers.ljf.spring.debug.entity.PersonDestroy">-->
+<!--			<property name="name" value="tom"/>-->
+<!--			<property name="age" value="20"/>-->
+<!--		</bean>-->
+
+		<bean name="personLifecycle" class="pers.ljf.spring.debug.entity.PersonLifecycle" init-method="initMethod" destroy-method="destroyMethod">
+			<property name="name" value="jim"/>
+			<property name="age" value="20"/>
 		</bean>
 	</beans>
 </beans>
