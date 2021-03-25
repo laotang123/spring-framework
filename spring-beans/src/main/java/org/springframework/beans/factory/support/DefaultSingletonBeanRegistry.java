@@ -74,13 +74,31 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	private static final int SUPPRESSED_EXCEPTIONS_LIMIT = 100;
 
 
-	/** Cache of singleton objects: bean name to bean instance. */
+
+	/**
+	 * 一级缓存
+	 * 用于保存beanName和bean实例之间的关系
+	 * Cache of singleton objects: bean name to bean instance.
+	 *
+	 */
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
-	/** Cache of singleton factories: bean name to ObjectFactory. */
+
+	/**
+	 * 三级缓存
+	 * 用于保存BeanName和bean工厂之间的关系
+	 *  TODO：BeanFactory，FactoryBean和ObjectFactory之间的关系？
+	 * Cache of singleton factories: bean name to ObjectFactory.
+	 */
 	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
 
-	/** Cache of early singleton objects: bean name to bean instance. */
+	/**
+	 * 二级缓存
+	 * 包船BeanName和bean之间的关系，与singletonFactories的不同之处在于，当一个单例bean被放到这里之后，那么当bean还在创建过程中
+	 * 就可以通过getBean方法获取到，可以方便进行循环依赖的检测。
+	 * TODO：还需多加理解如何解决循环依赖。
+	 * Cache of early singleton objects: bean name to bean instance.
+	 */
 	private final Map<String, Object> earlySingletonObjects = new ConcurrentHashMap<>(16);
 
 	/** Set of registered singletons, containing the bean names in registration order. */
