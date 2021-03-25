@@ -148,6 +148,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	private String serializationId;
 
 	/**
+	 * 默认允许方法名称相同的自定义对象重写
 	 * Whether to allow re-registration of a different definition with the same name.
 	 */
 	private boolean allowBeanDefinitionOverriding = true;

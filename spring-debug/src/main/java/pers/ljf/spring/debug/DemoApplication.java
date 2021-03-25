@@ -13,13 +13,15 @@ import pers.ljf.spring.debug.entity.PersonAware;
  */
 public class DemoApplication {
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
-		System.out.println(context.getBean("person"));
+//		ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+//		System.out.println(context.getBean("person"));
+//
+//		System.out.println(context.getBean("&personFactoryBean"));
+//		PersonAware personAware = (PersonAware)context.getBean("personAware");
+//		System.out.println(personAware.getBeanFactory());
+//		System.out.println(personAware.getBeanName());
+//		System.out.println(personAware.getClassLoader());
+		ApplicationContext context = new MyClassPathXmlApplicationContext("application.xml");
 
-		System.out.println(context.getBean("&personFactoryBean"));
-		PersonAware personAware = (PersonAware)context.getBean("personAware");
-		System.out.println(personAware.getBeanFactory());
-		System.out.println(personAware.getBeanName());
-		System.out.println(personAware.getClassLoader());
 	}
 }
