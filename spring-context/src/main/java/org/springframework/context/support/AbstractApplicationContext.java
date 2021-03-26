@@ -316,6 +316,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	@Override
 	public ConfigurableEnvironment getEnvironment() {
 		if (this.environment == null) {
+			//创建StandardEnvironment调用父类构造方法，获取系统属性map结构，填充了PropertySources属性
 			this.environment = createEnvironment();
 		}
 		return this.environment;
@@ -597,14 +598,24 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			}
 		}
 
-		// Initialize any placeholder property sources in the context environment.
+		/**
+		 * Initialize any placeholder property sources in the context environment.
+		 * 模板方法，父类实现为空；
+		 * 子类实现案例一：自定义验证一些属性添加到 requiredProperties
+		 * 配合validateRequiredProperties方法
+		 */
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable:
 		// see ConfigurablePropertyResolver#setRequiredProperties
 		getEnvironment().validateRequiredProperties();
 
-		// Store pre-refresh ApplicationListeners...
+		/**
+		 * 如果有earlyListeners就存入到当前applicationListeners，然后清除earlyListeners
+		 * 如果没有就把applicationListeners作为earlyListeners
+		 * Store pre-refresh ApplicationListeners...
+ 		 */
+
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
 		}

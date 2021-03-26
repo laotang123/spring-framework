@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<beans>
-<!--		<bean name="person" class="pers.ljf.spring.debug.entity.Person">-->
-<!--			<property name="name" value="lili"/>-->
-<!--			<property name="age" value="18"/>-->
-<!--		</bean>-->
+		<bean name="person" class="pers.ljf.spring.debug.entity.Person" scope="prototype">
+			<property name="name" value="lili"/>
+			<property name="age" value="18"/>
+		</bean>
 
-<!--		<bean name="personFactoryBean" class="pers.ljf.spring.debug.factory.PersonFactoryBean">-->
+		<!--		<bean name="personFactoryBean" class="pers.ljf.spring.debug.factory.PersonFactoryBean">-->
 
-<!--		</bean>-->
+		<!--		</bean>-->
 
-<!--		<bean name="personAware" class="pers.ljf.spring.debug.entity.PersonAware">-->
+		<!--		<bean name="personAware" class="pers.ljf.spring.debug.entity.PersonAware">-->
 
-<!--		</bean>-->
+		<!--		</bean>-->
 
-<!--		<bean name="personDestroy" class="pers.ljf.spring.debug.entity.PersonDestroy">-->
-<!--			<property name="name" value="tom"/>-->
-<!--			<property name="age" value="20"/>-->
-<!--		</bean>-->
+		<!--		<bean name="personDestroy" class="pers.ljf.spring.debug.entity.PersonDestroy">-->
+		<!--			<property name="name" value="tom"/>-->
+		<!--			<property name="age" value="20"/>-->
+		<!--		</bean>-->
 
-		<bean name="personLifecycle" class="pers.ljf.spring.debug.entity.PersonLifecycle" init-method="initMethod" destroy-method="destroyMethod">
+		<bean name="personLifecycle" class="pers.ljf.spring.debug.entity.PersonLifecycle" init-method="initMethod"
+			  destroy-method="destroyMethod">
 			<property name="name" value="jim"/>
 			<property name="age" value="20"/>
 		</bean>
+
+		<!--		<bean name="student" class="pers.ljf.spring.debug.entity.Student"/>-->
+
+		<context:component-scan base-package="pers.ljf.spring.debug.entity"/>
 	</beans>
 </beans>
