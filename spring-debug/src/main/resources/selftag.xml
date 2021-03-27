@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:ljf="http://www.golaxy.com/schema/user"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.golaxy.com/schema/user http://www.golaxy.com/schema/user.xsd">
+
+	<ljf:user id="testBean" username="tom" email="ljf.163.com" password="000000"/>
+
+</beans>
