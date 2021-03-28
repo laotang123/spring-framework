@@ -18,7 +18,7 @@ import org.springframework.beans.factory.config.DestructionAwareBeanPostProcesso
  */
 @Getter
 @ToString
-public class PersonLifecycle implements BeanNameAware, BeanPostProcessor, DisposableBean, DestructionAwareBeanPostProcessor {
+public class PersonLifecycle implements BeanNameAware, DisposableBean {
 	private String name;
 	private Integer age;
 	private String beanName;
@@ -44,20 +44,6 @@ public class PersonLifecycle implements BeanNameAware, BeanPostProcessor, Dispos
 	}
 
 
-	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		System.out.println("4.调用postProcessBefore方法");
-		System.out.println("beanName: " + beanName + "bean: " + bean);
-		return bean;
-	}
-
-	@Override
-	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		System.out.println("6.调用postProcessAfter方法");
-		System.out.println("beanName: " + beanName + "bean: " + bean);
-		return bean;
-	}
-
 	public void initMethod() {
 		System.out.println("5.调用init-method");
 	}
@@ -68,11 +54,7 @@ public class PersonLifecycle implements BeanNameAware, BeanPostProcessor, Dispos
 		System.out.println("8.调用destroy方法");
 	}
 
-	@Override
-	public void postProcessBeforeDestruction(Object bean, String beanName) throws BeansException {
-		System.out.println("7.调用postProcessBeforeDestruction方法");
-		System.out.println("beanName: " + beanName + "bean: " + bean);
-	}
+
 
 	public void destroyMethod(){
 		System.out.println("9.调用destroy-method标签方法");

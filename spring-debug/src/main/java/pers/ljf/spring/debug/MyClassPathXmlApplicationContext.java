@@ -5,6 +5,10 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.ResourceEntityResolver;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pers.ljf.spring.debug.entity.MyBeanPostProcessor;
+import pers.ljf.spring.debug.entity.MyDestructionAwareBeanPostProcessor;
+import pers.ljf.spring.debug.selfeditor.Address;
+import pers.ljf.spring.debug.selfeditor.AddressPropertyEditor;
 import pers.ljf.spring.debug.selfeditor.MyPropertyEditorRegistrar;
 import pers.ljf.spring.debug.xml.MyDefaultBeanDefinitionDocumentReader;
 import pers.ljf.spring.debug.xml.MyXmlBeanDefinitionReader;
@@ -42,8 +46,13 @@ public class MyClassPathXmlApplicationContext extends ClassPathXmlApplicationCon
 		this.setAllowCircularReferences(true);
 		super.customizeBeanFactory(beanFactory);
 
-		//自定义bean对象属性解析器
-		beanFactory.addPropertyEditorRegistrar(new MyPropertyEditorRegistrar());
+		//添加bean注销是调用的BeanPostProcessor
+		beanFactory.addBeanPostProcessor(new MyDestructionAwareBeanPostProcessor());
+		//添加BeanPostProcessor处理器，在对象实例化的init-method标签前后调用
+		beanFactory.addBeanPostProcessor(new MyBeanPostProcessor());
+		//自定义bean对象属性解析器 下面方式任选其一
+		beanFactory.registerCustomEditor(Address.class, AddressPropertyEditor.class);
+//		beanFactory.addPropertyEditorRegistrar(new MyPropertyEditorRegistrar());
 	}
 
 	@Override
