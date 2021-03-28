@@ -1,8 +1,6 @@
 package pers.ljf.spring.debug.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
@@ -16,12 +14,32 @@ import org.springframework.beans.factory.config.DestructionAwareBeanPostProcesso
  * @modified By：
  * @version: $ 1.0
  */
-@Getter
-@ToString
+
 public class PersonLifecycle implements BeanNameAware, DisposableBean {
 	private String name;
 	private Integer age;
 	private String beanName;
+
+	public String getName() {
+		return name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public String getBeanName() {
+		return beanName;
+	}
+
+	@Override
+	public String toString() {
+		return "PersonLifecycle{" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				", beanName='" + beanName + '\'' +
+				'}';
+	}
 
 	public PersonLifecycle() {
 		System.out.println("1.调用无参构造器");

@@ -1,8 +1,10 @@
 package pers.ljf.spring.debug.entity;
 
-import org.openqa.selenium.ContextAware;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.BeanClassLoaderAware;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.BeanNameAware;
 
 /**
  * @author: ljf
