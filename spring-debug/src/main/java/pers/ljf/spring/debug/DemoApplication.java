@@ -3,6 +3,7 @@ package pers.ljf.spring.debug;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pers.ljf.spring.debug.entity.PersonAware;
+import pers.ljf.spring.debug.selfeditor.Customer;
 
 /**
  * @author: ljf
@@ -21,7 +22,9 @@ public class DemoApplication {
 //		System.out.println(personAware.getBeanFactory());
 //		System.out.println(personAware.getBeanName());
 //		System.out.println(personAware.getClassLoader());
-		ApplicationContext context = new MyClassPathXmlApplicationContext("application.xml");
+		ApplicationContext context = new MyClassPathXmlApplicationContext("selfeditor.xml");
 
+		Customer customer = (Customer) context.getBean("customer");
+		System.out.println(customer);
 	}
 }

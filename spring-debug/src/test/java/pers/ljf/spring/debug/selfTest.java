@@ -1,7 +1,9 @@
 package pers.ljf.spring.debug;
 
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pers.ljf.spring.debug.selfeditor.Customer;
 import pers.ljf.spring.debug.selftag.User;
 
 /**
@@ -11,10 +13,19 @@ import pers.ljf.spring.debug.selftag.User;
  * @modified By:
  * @version: $ 1.0
  */
-public class selfTagTest {
-	public static void main(String[] args) {
+public class selfTest {
+	@Test
+	public void selfTagTest() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("selftag.xml");
-		User user = (User)context.getBean("testBean");
+		User user = (User) context.getBean("testBean");
 		System.out.println(user);
+	}
+
+
+	@Test
+	public void selfEditorTest() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("selfeditor.xml");
+		Customer customer = (Customer) context.getBean("customer");
+		System.out.println(customer);
 	}
 }
