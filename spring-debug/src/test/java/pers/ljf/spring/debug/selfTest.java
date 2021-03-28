@@ -3,6 +3,7 @@ package pers.ljf.spring.debug;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pers.ljf.spring.debug.selfautowire.StudentController;
 import pers.ljf.spring.debug.selfautowire.StudentService;
 import pers.ljf.spring.debug.selfeditor.Customer;
 import pers.ljf.spring.debug.selftag.User;
@@ -34,7 +35,10 @@ public class selfTest {
 	@Test
 	public void selfAutowireTest() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("selfautowire.xml");
-		StudentService studentService = (StudentService) context.getBean("studentService");
+		StudentService studentService = (StudentService) context.getBean("studentServiceImpl");
 		System.out.println(studentService);
+
+		StudentController studentController = (StudentController) context.getBean("studentController");
+		System.out.println(studentController.getStudent());
 	}
 }
