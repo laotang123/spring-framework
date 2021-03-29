@@ -12,12 +12,9 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class StudentController {
-	private final StudentService studentService;
-
 	@Autowired
-	public StudentController(StudentService studentService){
-		this.studentService = studentService;
-	}
+	private StudentService studentService;
+
 
 	public Student getStudent() {
 		return studentService.getStudent();
