@@ -363,6 +363,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 							throw ex;
 						}
 					});
+					//如果是FactoryBean对象，获取使用factoryBean 名称来获取bean，需要调用FactoryBean的getObject方法
 					bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
 				//prototype
 				} else if (mbd.isPrototype()) {
