@@ -133,7 +133,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			beanFactory.setSerializationId(getId());
 			//设置是否允许循环依赖和类名称重写，boolean
 			customizeBeanFactory(beanFactory);
-			//string[xml location] -> xml location -> resource -> beanDefinition[]
+			//string[xml location] -> xml location -> resource[] -> resource -> beanDefinition[]
 			loadBeanDefinitions(beanFactory);
 			this.beanFactory = beanFactory;
 		} catch (IOException ex) {
