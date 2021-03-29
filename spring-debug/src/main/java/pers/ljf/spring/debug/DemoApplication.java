@@ -26,15 +26,15 @@ public class DemoApplication {
 //		System.out.println(personAware.getBeanFactory());
 //		System.out.println(personAware.getBeanName());
 //		System.out.println(personAware.getClassLoader());
-		ApplicationContext context = new MyClassPathXmlApplicationContext("application.xml");
-
-
-		PersonLifecycle personLifecycle = (PersonLifecycle) context.getBean("personLifecycle");
-		System.out.println(personLifecycle);
-		System.out.println(context.getBeanDefinitionCount());
-
-//		((ClassPathXmlApplicationContext) context).close();
-		((ClassPathXmlApplicationContext) context).registerShutdownHook();
-		System.out.println(context.getBeanDefinitionCount());
+//		ApplicationContext context = new MyClassPathXmlApplicationContext("application.xml");
+//
+//
+//		PersonLifecycle personLifecycle = (PersonLifecycle) context.getBean("personLifecycle");
+//		System.out.println(personLifecycle);
+//		System.out.println(context.getBeanDefinitionCount());
+//
+////		((ClassPathXmlApplicationContext) context).close();
+//		((ClassPathXmlApplicationContext) context).registerShutdownHook();
+//		System.out.println(context.getBeanDefinitionCount());
 	}
 }
