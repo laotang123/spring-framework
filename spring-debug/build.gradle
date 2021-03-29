@@ -83,8 +83,4 @@ dependencies {
     testRuntime("com.sun.xml.bind:jaxb-core")
     testRuntime("com.sun.xml.bind:jaxb-impl")
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.2'
-    annotationProcessor project(":spring-context")
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
 }

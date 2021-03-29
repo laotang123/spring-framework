@@ -129,9 +129,18 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			closeBeanFactory();
 		}
 		try {
+			/**
+			 * 创建DefaultListableBeanFactory，添加了忽略接口
+			 * BeanNameAware，BeanFactoryAware,BeanClassLoaderAware
+			 * 实质是添加到了BeanFactory中的ignoreMap中，这三种类型的接口是由实例创建的invokeAwareMethods方法
+			 * 通过set填充属性
+			 */
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
 			beanFactory.setSerializationId(getId());
-			//设置是否允许循环依赖和类名称重写，boolean
+			/**
+			 * 填充两个属性
+			 * 允许相同定义名称的对象重写和循环依赖重写
+			 */
 			customizeBeanFactory(beanFactory);
 			//string[xml location] -> xml location -> resource[] -> resource -> beanDefinition[]
 			loadBeanDefinitions(beanFactory);

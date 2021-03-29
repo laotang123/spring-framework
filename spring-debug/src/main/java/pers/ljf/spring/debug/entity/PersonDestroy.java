@@ -1,6 +1,5 @@
 package pers.ljf.spring.debug.entity;
 
-import lombok.Data;
 import org.springframework.beans.factory.DisposableBean;
 
 /**
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.DisposableBean;
  * @modified By：
  * @version: $ 1.0
  */
-@Data
 public class PersonDestroy implements DisposableBean {
 	private String name;
 	private Integer age;
@@ -20,6 +18,30 @@ public class PersonDestroy implements DisposableBean {
 		System.out.println("释放对象");
 		this.name = null;
 		this.age = null;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return "PersonDestroy{" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				'}';
 	}
 }
 
