@@ -215,6 +215,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 
 	/**
+	 * LJF: 添加访问
+	 */
+	public Set<String> getAlreadyCreated() {
+		return alreadyCreated;
+	}
+
+	/**
 	 * Create a new AbstractBeanFactory.
 	 */
 	public AbstractBeanFactory() {
@@ -365,7 +372,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					});
 					//如果是FactoryBean对象，获取使用factoryBean 名称来获取bean，需要调用FactoryBean的getObject方法
 					bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
-				//prototype
+					//prototype
 				} else if (mbd.isPrototype()) {
 					// It's a prototype -> create a new instance.
 					Object prototypeInstance = null;

@@ -1,6 +1,7 @@
 package pers.ljf.spring.debug.cycle;
 
 import org.junit.Test;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -29,8 +30,11 @@ public class CycleTest {
 	public void testAOP() {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("aop.xml");
 		C bean = context.getBean(C.class);
+		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();
 		System.out.println(context.getBeanDefinitionCount());
 		System.out.println(Arrays.toString(context.getBeanDefinitionNames()));
+		System.out.println("alreadyCreated set: " + beanFactory.getAlreadyCreated());
+		System.out.println("containedBeanMap: " + beanFactory.getContainedBeanMap());
 		System.out.println(bean);
 		bean.m1();
 	}
