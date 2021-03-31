@@ -516,7 +516,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		try {
-			//如果beanFactory中的BeanPostProcessor包含代理postProcessor，则需要先创建代理方法的bean对象 多个XXXAdvisor
 			// Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
 			Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			if (bean != null) {
@@ -588,7 +587,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 		}
 
-		// 触发提前暴露机制，一个对象实例化但是未填充属性和初始化属于半成品状态，此时提前暴露解决循环引用机制
 		// Eagerly cache singletons to be able to resolve circular references
 		// even when triggered by lifecycle interfaces like BeanFactoryAware.
 		boolean earlySingletonExposure = (mbd.isSingleton() && this.allowCircularReferences &&
@@ -598,16 +596,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				logger.trace("Eagerly caching bean '" + beanName +
 						"' to allow for resolving potential circular references");
 			}
-			//为避免循环依赖，将beanName对应的ObjectFactory添加到三级缓存，调用时会动态创建proxyBean
-//			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
-
-			//使用二级缓存尝试解决非aop的循环依赖，一级缓存中找不到直接实例化完成的对象添加到二级缓存
-			synchronized (this.singletonObjects) {
-				if (!this.singletonObjects.containsKey(beanName)) {
-					this.earlySingletonObjects.put(beanName, bean);
-					this.registeredSingletons.add(beanName);
-				}
-			}
+			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
 		}
 
 		// Initialize the bean instance.
@@ -615,7 +604,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		try {
 			//填充bean对象
 			populateBean(beanName, mbd, instanceWrapper);
-			//初始化bean对象，创建代理类对象在此方法
+			//初始化bean对象
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
 		} catch (Throwable ex) {
 			if (ex instanceof BeanCreationException && beanName.equals(((BeanCreationException) ex).getBeanName())) {
@@ -627,12 +616,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		if (earlySingletonExposure) {
-			//如果这里使用的是二级缓存，那么此时getSingleton获取的是二级缓存中的plain B 即earlySingletonReference
-			//但是经过initializeBean方法后plain B变成了proxy B 即exposedObject
-			//二级缓存最终造成的结果是proxy B(plain a) proxy A(proxy b)
 			Object earlySingletonReference = getSingleton(beanName, false);
 			if (earlySingletonReference != null) {
-				//所以exposedObject != bean
 				if (exposedObject == bean) {
 					exposedObject = earlySingletonReference;
 				} else if (!this.allowRawInjectionDespiteWrapping && hasDependentBean(beanName)) {
@@ -643,7 +628,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 							actualDependentBeans.add(dependentBean);
 						}
 					}
-					//如果暴露出的对象和getSingleton获取出来的不一致，并且依赖的对象也存在alreadyCreated集合中，那么报错
 					if (!actualDependentBeans.isEmpty()) {
 						throw new BeanCurrentlyInCreationException(beanName,
 								"Bean with name '" + beanName + "' has been injected into other beans [" +
