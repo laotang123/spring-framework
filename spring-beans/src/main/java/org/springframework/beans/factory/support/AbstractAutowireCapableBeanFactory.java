@@ -596,7 +596,26 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				logger.trace("Eagerly caching bean '" + beanName +
 						"' to allow for resolving potential circular references");
 			}
+			//一级+二级+三级缓存实现
 			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
+
+			//一级+二级缓存实现
+//			synchronized (this.singletonObjects) {
+//				if (!this.singletonObjects.containsKey(beanName)) {
+//					//实例化后的对象先添加到三级缓存中，三级缓存对应beanName的是一个lambda表达式(能够触发创建代理对象的机制)
+//					this.earlySingletonObjects.put(beanName, bean);
+//					this.registeredSingletons.add(beanName);
+//				}
+//			}
+
+			//一级+三级缓存实现
+//			synchronized (this.singletonObjects) {
+//				if (!this.singletonObjects.containsKey(beanName)) {
+//					//实例化后的对象先添加到三级缓存中，三级缓存对应beanName的是一个lambda表达式(能够触发创建代理对象的机制)
+//					this.singletonFactories.put(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
+//					this.registeredSingletons.add(beanName);
+//				}
+//			}
 		}
 
 		// Initialize the bean instance.
@@ -606,7 +625,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			populateBean(beanName, mbd, instanceWrapper);
 			//初始化bean对象
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
-		} catch (Throwable ex) {
+		} catch (
+				Throwable ex) {
 			if (ex instanceof BeanCreationException && beanName.equals(((BeanCreationException) ex).getBeanName())) {
 				throw (BeanCreationException) ex;
 			} else {
@@ -644,7 +664,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Register bean as disposable.
 		try {
 			registerDisposableBeanIfNecessary(beanName, bean, mbd);
-		} catch (BeanDefinitionValidationException ex) {
+		} catch (
+				BeanDefinitionValidationException ex) {
 			throw new BeanCreationException(
 					mbd.getResourceDescription(), beanName, "Invalid destruction signature", ex);
 		}

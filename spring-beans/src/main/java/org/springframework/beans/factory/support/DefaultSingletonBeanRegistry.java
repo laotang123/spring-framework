@@ -233,38 +233,6 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * <p>Checks already instantiated singletons and also allows for an early
 	 * reference to a currently created singleton (resolving a circular reference).
 	 */
-//	@Nullable
-//	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
-//		// Quick check for existing instance without full singleton lock
-//		Object singletonObject = this.singletonObjects.get(beanName);
-//		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
-//			singletonObject = this.earlySingletonObjects.get(beanName);
-//			if (singletonObject == null && allowEarlyReference) {
-//				synchronized (this.singletonObjects) {
-//					// Consistent creation of early reference within full singleton lock
-//					singletonObject = this.singletonObjects.get(beanName);
-//					if (singletonObject == null) {
-//						singletonObject = this.earlySingletonObjects.get(beanName);
-//						if (singletonObject == null) {
-//							ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
-//							if (singletonFactory != null) {
-//								singletonObject = singletonFactory.getObject();
-//								this.earlySingletonObjects.put(beanName, singletonObject);
-//								this.singletonFactories.remove(beanName);
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//		return singletonObject;
-//	}
-
-
-	/**
-	 * LJF: 二级缓存解决非AOP循环依赖问题
-	 * 先从一级缓存中找，找不到再到二级缓存中
-	 */
 	@Nullable
 	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 		// Quick check for existing instance without full singleton lock
@@ -272,19 +240,75 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
 			singletonObject = this.earlySingletonObjects.get(beanName);
 			if (singletonObject == null && allowEarlyReference) {
-				//防止期间有别的线程更新一级缓存
 				synchronized (this.singletonObjects) {
 					// Consistent creation of early reference within full singleton lock
 					singletonObject = this.singletonObjects.get(beanName);
 					if (singletonObject == null) {
-						//如果二级缓存还没有，返回null
 						singletonObject = this.earlySingletonObjects.get(beanName);
+						if (singletonObject == null) {
+							ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+							if (singletonFactory != null) {
+								//	二级缓存是三级缓存调用lambda表达式获取对象，之后的一个缓存区域，
+								//	如果没有二级缓存，三级缓存就要重复执行lambda表达式
+								singletonObject = singletonFactory.getObject();
+								this.earlySingletonObjects.put(beanName, singletonObject);
+								this.singletonFactories.remove(beanName);
+							}
+						}
 					}
 				}
 			}
 		}
 		return singletonObject;
 	}
+
+
+	/**
+	 * LJF: 二级缓存解决非AOP循环依赖问题，使用一级+二级缓存
+	 * 先从一级缓存中找，找不到再到二级缓存中
+	 */
+//	@Nullable
+//	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+//		// Quick check for existing instance without full singleton lock
+//		Object singletonObject = this.singletonObjects.get(beanName);
+//		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
+//			singletonObject = this.earlySingletonObjects.get(beanName);
+//			if (singletonObject == null && allowEarlyReference) {
+//				//防止期间有别的线程更新一级缓存
+//				synchronized (this.singletonObjects) {
+//					// Consistent creation of early reference within full singleton lock
+//					singletonObject = this.singletonObjects.get(beanName);
+//					if (singletonObject == null) {
+//						//如果二级缓存还没有，返回null
+//						singletonObject = this.earlySingletonObjects.get(beanName);
+//					}
+//				}
+//			}
+//		}
+//		return singletonObject;
+//	}
+
+	/**
+	 * LJF: 使用一级+三级缓存
+	 */
+//	@Nullable
+//	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+//		// Quick check for existing instance without full singleton lock
+//		Object singletonObject = this.singletonObjects.get(beanName);
+//		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName) && allowEarlyReference) {
+//			//防止期间有别的线程更新一级缓存
+//			synchronized (this.singletonObjects) {
+//				// Consistent creation of early reference within full singleton lock
+//				singletonObject = this.singletonObjects.get(beanName);
+//				if (singletonObject == null) {
+//					//访问三级缓存
+//					ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+//					return singletonFactory.getObject();
+//				}
+//			}
+//		}
+//		return singletonObject;
+//	}
 
 	/**
 	 * Return the (raw) singleton object registered under the given name,
