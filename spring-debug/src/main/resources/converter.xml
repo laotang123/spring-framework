@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="string2integer" class="pers.ljf.spring.debug.selfconverter.StringToInteger"/>
+	<bean id="studentConverter" class="pers.ljf.spring.debug.selfconverter.StudentConverter"/>
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<ref bean="string2integer"/>
+				<ref bean="studentConverter"/>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="teacher" class="pers.ljf.spring.debug.selfconverter.Teacher">
+		<property name="student" value="小王_18"/>
+	</bean>
+</beans>

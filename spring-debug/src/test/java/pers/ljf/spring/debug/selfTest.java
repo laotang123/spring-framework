@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pers.ljf.spring.debug.selfautowire.StudentController;
 import pers.ljf.spring.debug.selfautowire.StudentService;
+import pers.ljf.spring.debug.selfconverter.StringToInteger;
+import pers.ljf.spring.debug.selfconverter.Teacher;
 import pers.ljf.spring.debug.selfeditor.Customer;
 import pers.ljf.spring.debug.selftag.User;
 
@@ -40,5 +42,14 @@ public class selfTest {
 
 		StudentController studentController = (StudentController) context.getBean("studentController");
 		System.out.println(studentController.getStudent());
+	}
+
+	@Test
+	public void selfConverter() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("converter.xml");
+		StringToInteger bean = context.getBean(StringToInteger.class);
+		Teacher teacher = context.getBean(Teacher.class);
+		System.out.println(teacher);
+		System.out.println(bean);
 	}
 }
