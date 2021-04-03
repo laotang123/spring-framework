@@ -77,6 +77,13 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 	}
 
 
+	/**
+	 * 在initializeBean中调用invokeAwareMethod()方法之后调用该方法
+	 * 为指定的几个aware 的set方法
+	 *
+	 * @param bean     the new bean instance
+	 * @param beanName the name of the bean
+	 */
 	@Override
 	@Nullable
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {

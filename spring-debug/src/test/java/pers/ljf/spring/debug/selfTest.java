@@ -47,9 +47,7 @@ public class selfTest {
 	@Test
 	public void selfConverter() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("converter.xml");
-		StringToInteger bean = context.getBean(StringToInteger.class);
 		Teacher teacher = context.getBean(Teacher.class);
 		System.out.println(teacher);
-		System.out.println(bean);
 	}
 }
