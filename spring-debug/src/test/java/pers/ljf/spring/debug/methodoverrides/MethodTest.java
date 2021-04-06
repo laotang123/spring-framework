@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pers.ljf.spring.debug.methodoverrides.lookup.FruitPlate;
+import pers.ljf.spring.debug.methodoverrides.replace.OriginalDog;
 
 /**
  * @author: ljf
@@ -22,5 +23,13 @@ public class MethodTest {
 		fruitPlate1.getFruit();
 		fruitPlate2.getFruit();
 
+	}
+
+	@Test
+	public void replaceMethodTest() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("replacemethod.xml");
+		OriginalDog originalDog = (OriginalDog) context.getBean("originalDogWithReplaceMethod");
+
+		originalDog.sayHello("tom");
 	}
 }

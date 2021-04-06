@@ -70,6 +70,7 @@ import org.springframework.beans.factory.config.DependencyDescriptor;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor;
 import org.springframework.beans.factory.config.TypedStringValue;
+import org.springframework.cglib.proxy.MethodProxy;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.NamedThreadLocal;
@@ -509,7 +510,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Prepare method overrides.
 		try {
-			//lookup-method和replace-method标签对应的方法重写，解决单例引用原型的问题
+			/**
+			 * lookup-method和replace-method标签对应的方法重写，解决单例引用原型的问题
+			 * getOverride-> matches-> overloaded
+			 * @see org.springframework.beans.factory.support.LookupOverride#matches(Method) 该方法中使用这里设置的属性
+			 * @see org.springframework.beans.factory.support.CglibSubclassingInstantiationStrategy.LookupOverrideMethodInterceptor#intercept(Object, Method, Object[], MethodProxy)
+			 */
 			mbdToUse.prepareMethodOverrides();
 		} catch (BeanDefinitionValidationException ex) {
 			throw new BeanDefinitionStoreException(mbdToUse.getResourceDescription(),
@@ -1215,6 +1221,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Shortcut when re-creating the same bean...
+		// 获取prototype模式下的构造器缓存标识符
 		boolean resolved = false;
 		boolean autowireNecessary = false;
 		if (args == null) {
@@ -1229,7 +1236,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			if (autowireNecessary) {
 				return autowireConstructor(beanName, mbd, null, null);
 			} else {
-				//添加
+				// 构造器相同模式下的缓存作用
 				return instantiateBean(beanName, mbd);
 			}
 		}

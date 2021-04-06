@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--只针对person类进行InstantiationAwareBeanPostProcessor来创建代理对象-->
+	<bean id="myInstantiationAwareBeanPostProcessor"
+		  class="pers.ljf.spring.debug.createbean.instantiationawareBPP.MyInstantiationAwareBeanPostProcessor"/>
+
+	<bean id="person" class="pers.ljf.spring.debug.entity.Person">
+		<property name="name" value="tom"/>
+		<property name="age" value="20"/>
+	</bean>
+
+	<bean id="user" class="pers.ljf.spring.debug.entity.User">
+		<property name="name" value="juice"/>
+		<property name="id" value="1001"/>
+	</bean>
+</beans>

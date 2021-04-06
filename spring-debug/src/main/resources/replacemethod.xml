@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="replaceMethod" class="pers.ljf.spring.debug.methodoverrides.replace.ReplaceDog"/>
+
+	<bean id="originalDogWithReplaceMethod" class="pers.ljf.spring.debug.methodoverrides.replace.OriginalDog">
+		<replaced-method name="sayHello" replacer="replaceMethod">
+			<arg-type match="java.lang.String"/>
+		</replaced-method>
+	</bean>
+</beans>

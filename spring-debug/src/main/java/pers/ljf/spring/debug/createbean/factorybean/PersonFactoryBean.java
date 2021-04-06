@@ -1,4 +1,4 @@
-package pers.ljf.spring.debug.factory;
+package pers.ljf.spring.debug.createbean.factorybean;
 
 import org.springframework.beans.factory.FactoryBean;
 import pers.ljf.spring.debug.entity.Person;
