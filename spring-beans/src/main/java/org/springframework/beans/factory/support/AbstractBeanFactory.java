@@ -1243,6 +1243,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * and populate bean instances.
 	 * <p>The default implementation delegates to {@link #registerCustomEditors}.
 	 * Can be overridden in subclasses.
+	 * 设置属性类型转换服务和自定义editor customEditor
 	 *
 	 * @param bw the BeanWrapper to initialize
 	 */
