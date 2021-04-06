@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pers.ljf.spring.debug.createbean.supplier.ClassPathXmlApplicationWithSupplier;
 import pers.ljf.spring.debug.entity.Person;
 import pers.ljf.spring.debug.entity.User;
 
@@ -40,5 +41,35 @@ public class CreateBeanTest {
 		System.out.println(context.getBean(Person.class));
 		System.out.println(context.getBean(User.class));
 
+	}
+
+	/**
+	 * 向BeanDefinition中填充instanceSupplier属性来创建对象
+	 *
+	 * @see org.springframework.beans.factory.config.AutowireCapableBeanFactory #createBeanInstance方法
+	 */
+	@Test
+	public void supplierTest() {
+		//方式一： xml中加入BeanFactoryPostProcessor
+//		ApplicationContext context = new ClassPathXmlApplicationContext("supplier.xml");
+//		User user = (User) context.getBean("user");
+//		System.out.println(user);
+
+		//方式二：扩展BeanFactory
+		ApplicationContext context = new ClassPathXmlApplicationWithSupplier("supplier.xml");
+		Object user = context.getBean("user");
+		System.out.println(user);
+	}
+
+	@Test
+	public void factoryMethodTest() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("factorymethod.xml");
+		Object person1 = context.getBean("person1");
+		System.out.println(person1.hashCode());
+		System.out.println(context.getBean("person1").hashCode());
+
+		Object person2 = context.getBean("person2");
+		System.out.println(person2.hashCode());
+		System.out.println(context.getBean("person2").hashCode());
 	}
 }

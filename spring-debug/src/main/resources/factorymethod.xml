@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--通过factory-method来创建对象-->
+	<!--	实例工厂创建对象，需要创建实例工厂对象-->
+	<bean id="instanceFactory" class="pers.ljf.spring.debug.createbean.factorymethod.PersonInstanceFactory"/>
+
+	<bean id="person1" factory-bean="instanceFactory" factory-method="getPerson">
+		<constructor-arg value="person1_instanceFactory_name"/>
+	</bean>
+
+	<!--静态工厂方法创建对象-->
+	<bean id="person2" class="pers.ljf.spring.debug.createbean.factorymethod.PersonStaticFactory"
+		  factory-method="getPerson">
+		<constructor-arg value="person2_staticFactory_name"/>
+	</bean>
+</beans>
