@@ -2,8 +2,10 @@ package pers.ljf.spring.debug.cycle;
 
 import org.junit.Test;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pers.ljf.spring.debug.aop.MyCalculator;
 
 import java.util.Arrays;
 
@@ -28,14 +30,16 @@ public class CycleTest {
 
 	@Test
 	public void testAOP() {
+		//设置cglib的代理类class文件存储位置
+		System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:\\class");
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("aop.xml");
-		C bean = context.getBean(C.class);
-		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();
-		System.out.println(context.getBeanDefinitionCount());
-		System.out.println(Arrays.toString(context.getBeanDefinitionNames()));
-		System.out.println("alreadyCreated set: " + beanFactory.getAlreadyCreated());
-		System.out.println("containedBeanMap: " + beanFactory.getContainedBeanMap());
-		System.out.println(bean);
-		bean.m1();
+		MyCalculator calculator = context.getBean(MyCalculator.class);
+		System.out.println(calculator);
+		int add = calculator.add(3, 4);
+		System.out.println(calculator.add(3, 4));
+		System.out.println(calculator.sub(3, 4));
+		System.out.println(calculator.mul(3, 4));
+		System.out.println(calculator.div(3, 4));
+//		calculator.div(1,0);
 	}
 }

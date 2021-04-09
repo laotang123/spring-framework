@@ -3,15 +3,18 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/aop/spring-aop.xsd">
-	<bean id="c" class="pers.ljf.spring.debug.cycle.C"/>
+	<bean id="logUtil" class="pers.ljf.spring.debug.aop.LogUtil"/>
 
-	<bean id="logger" class="pers.ljf.spring.debug.cycle.Logger"/>
+	<bean id="myCalculator" class="pers.ljf.spring.debug.aop.MyCalculator"/>
 	<!--切面，切入点和通知-->
 	<aop:config>
-		<aop:aspect id="logger" ref="logger">
-			<aop:pointcut id="method" expression="execution(* pers.ljf.spring.debug.cycle.*.*(..))"/>
-			<aop:before method="recordBefore" pointcut-ref="method"/>
-			<aop:after method="recordAfter" pointcut-ref="method"/>
+		<aop:aspect id="logUtil" ref="logUtil">
+			<aop:pointcut id="myPoint" expression="execution(int pers.ljf.spring.debug.aop.MyCalculator.*(..))"/>
+			<aop:before method="start" pointcut-ref="myPoint"/>
+			<aop:after method="logFinally" pointcut-ref="myPoint"/>
+			<aop:after-returning method="stop" pointcut-ref="myPoint" returning="result"/>
+			<aop:after-throwing method="logException" pointcut-ref="myPoint" throwing="e"/>
+			<aop:around method="around" pointcut-ref="myPoint"/>
 		</aop:aspect>
 	</aop:config>
 </beans>
