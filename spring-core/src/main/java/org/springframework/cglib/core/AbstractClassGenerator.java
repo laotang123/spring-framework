@@ -303,7 +303,7 @@ abstract public class AbstractClassGenerator<T> implements ClassGenerator {
 			ClassLoader loader = getClassLoader();
 			Map<ClassLoader, ClassLoaderData> cache = CACHE;
 			ClassLoaderData data = cache.get(loader);
-			if (data == null) {
+			if (data == null) {//双重检测
 				synchronized (AbstractClassGenerator.class) {
 					cache = CACHE;
 					data = cache.get(loader);
