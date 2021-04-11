@@ -31,7 +31,7 @@ public class CycleTest {
 	@Test
 	public void testAOP() {
 		//设置cglib的代理类class文件存储位置
-		System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:\\class");
+		System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "build/proxy/aop");
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("aop.xml");
 		MyCalculator calculator = context.getBean(MyCalculator.class);
 		System.out.println(calculator);
