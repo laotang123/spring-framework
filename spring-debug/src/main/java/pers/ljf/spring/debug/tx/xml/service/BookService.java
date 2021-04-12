@@ -29,7 +29,11 @@ public class BookService {
 	 */
 	public void checkout(String username, int id) {
 		//更新库存
-		bookDao.updateStock(id);
+		try {
+			bookDao.updateStock(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		//更新用户余额
 		float price = bookDao.getPrice(id);

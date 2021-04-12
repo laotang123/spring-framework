@@ -42,5 +42,10 @@ public class BookDao {
 		String sql = "update book_stock set stock=stock-1 where id=?";
 		this.jdbcTemplate.update(sql, id);
 
+		//内部方法抛异常
+		for (int i = 1; i >= 0; i--) {
+			int j = 3 / i;
+		}
+
 	}
 }

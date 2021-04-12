@@ -32,6 +32,8 @@ public class ContextNamespaceHandler extends NamespaceHandlerSupport {
 
 	@Override
 	public void init() {
+		//property-placeholder向BeanFactory中注册一个PropertySourcesPlaceHolderConfigurer，是一个BeanFactoryPostProcessor，
+		//在invokeBeanFactoryMethods中实例化并调用
 		registerBeanDefinitionParser("property-placeholder", new PropertyPlaceholderBeanDefinitionParser());
 		registerBeanDefinitionParser("property-override", new PropertyOverrideBeanDefinitionParser());
 		registerBeanDefinitionParser("annotation-config", new AnnotationConfigBeanDefinitionParser());
