@@ -82,5 +82,7 @@ dependencies {
     testRuntime("org.glassfish:javax.el")
     testRuntime("com.sun.xml.bind:jaxb-core")
     testRuntime("com.sun.xml.bind:jaxb-impl")
+    compile("com.alibaba:druid:1.2.4")
+    compile("mysql:mysql-connector-java:5.1.48")
 
 }
