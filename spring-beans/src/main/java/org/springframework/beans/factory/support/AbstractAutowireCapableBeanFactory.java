@@ -605,6 +605,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 						"' to allow for resolving potential circular references");
 			}
 			//一级+二级+三级缓存实现
+			//beanPostProcessor中的SmartInstantiationAwareBeanPostProcessor，aop代理实现该接口
 			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
 
 			//一级+二级缓存实现
