@@ -66,6 +66,7 @@ import org.springframework.web.util.NestedServletException;
 import org.springframework.web.util.WebUtils;
 
 /**
+ * http请求中的中心调度器，调度器通过注册handlers来处理web的请求，提供便捷的匹配和异常处理能力。
  * Central dispatcher for HTTP request handlers/controllers, e.g. for web UI controllers
  * or HTTP-based remote service exporters. Dispatches to registered handlers for processing
  * a web request, providing convenient mapping and exception handling facilities.
