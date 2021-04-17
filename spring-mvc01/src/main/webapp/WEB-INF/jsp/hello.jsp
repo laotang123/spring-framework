@@ -12,6 +12,5 @@
 </head>
 <body>
 <h1> Hello, World</h1>
-<h2> 我爱你，刘朵</h2>
 </body>
 </html>

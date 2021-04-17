@@ -285,7 +285,7 @@ public class ContextLoader {
 			// Store context in local instance variable, to guarantee that
 			// it is available on ServletContext shutdown.
 			if (this.context == null) {
-				//创建spring容器和spring mvc容器都是这个入口
+				//spring容器和springmvc容器创建方法一致，但是内容不一致
 				this.context = createWebApplicationContext(servletContext);
 			}
 			if (this.context instanceof ConfigurableWebApplicationContext) {

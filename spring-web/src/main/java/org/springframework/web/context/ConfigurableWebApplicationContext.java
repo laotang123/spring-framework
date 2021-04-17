@@ -57,6 +57,7 @@ public interface ConfigurableWebApplicationContext extends WebApplicationContext
 	 * <p>Does not cause an initialization of the context: refresh needs to be
 	 * called after the setting of all configuration properties.
 	 * @see #refresh()
+	 * setvletContext是web.xml的全局文件配置信息
 	 */
 	void setServletContext(@Nullable ServletContext servletContext);
 
@@ -64,6 +65,7 @@ public interface ConfigurableWebApplicationContext extends WebApplicationContext
 	 * Set the ServletConfig for this web application context.
 	 * Only called for a WebApplicationContext that belongs to a specific Servlet.
 	 * @see #refresh()
+	 * servletConfig是单个servlet的配置信息
 	 */
 	void setServletConfig(@Nullable ServletConfig servletConfig);
 
