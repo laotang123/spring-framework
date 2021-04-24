@@ -24,6 +24,7 @@
 
 	<bean id="/test01" class="com.golaxy.springmvc.controller.impl.Test01"/>
 	<bean id="/test02" class="com.golaxy.springmvc.controller.impl.Test02"/>
+	<bean id="/userlist2" class="com.golaxy.springmvc.controller.UserListController2"/>
 
 
 </beans>
