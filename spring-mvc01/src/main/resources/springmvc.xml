@@ -13,5 +13,14 @@
 	<!--开启注解-->
 	<mvc:annotation-driven/>
 
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="17367648787"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
 
 </beans>
