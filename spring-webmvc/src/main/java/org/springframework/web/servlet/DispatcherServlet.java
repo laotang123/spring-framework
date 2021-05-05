@@ -376,6 +376,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * List of HandlerExceptionResolvers used by this servlet.
+	 * 自定义的全局异常类在该属性中存储
 	 */
 	@Nullable
 	private List<HandlerExceptionResolver> handlerExceptionResolvers;
