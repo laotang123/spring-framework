@@ -220,6 +220,9 @@ class ConfigurationClassParser {
 
 
 	protected void processConfigurationClass(ConfigurationClass configClass, Predicate<String> filter) throws IOException {
+		/*
+		 * 情况一：只要不是Conditional注解修饰的全部不跳过
+		 */
 		if (this.conditionEvaluator.shouldSkip(configClass.getMetadata(), ConfigurationPhase.PARSE_CONFIGURATION)) {
 			return;
 		}
@@ -258,6 +261,8 @@ class ConfigurationClassParser {
 	 * @param configClass the configuration class being build
 	 * @param sourceClass a source class
 	 * @return the superclass, or {@code null} if none found or previously processed
+	 * 类似前序遍历，扫描到当前类的@Component，就进行继续解析parse。解析过程中如果新扫描到了，就继续解析。
+	 * 一层层深入，一层层返回
 	 */
 	@Nullable
 	protected final SourceClass doProcessConfigurationClass(
@@ -566,6 +571,7 @@ class ConfigurationClassParser {
 							exclusionFilter = exclusionFilter.or(selectorFilter);
 						}
 						if (selector instanceof DeferredImportSelector) {
+							//添加属性值：deferredImportSelectors中去
 							this.deferredImportSelectorHandler.handle(configClass, (DeferredImportSelector) selector);
 						} else {
 							String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());
@@ -579,6 +585,7 @@ class ConfigurationClassParser {
 						ImportBeanDefinitionRegistrar registrar =
 								ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,
 										this.environment, this.resourceLoader, this.registry);
+						//添加到configClass的属性importBeanDefinitionRegistrars中
 						configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());
 					} else {
 						// Candidate class not an ImportSelector or ImportBeanDefinitionRegistrar ->
@@ -759,7 +766,9 @@ class ConfigurationClassParser {
 				if (deferredImports != null) {
 					DeferredImportSelectorGroupingHandler handler = new DeferredImportSelectorGroupingHandler();
 					deferredImports.sort(DEFERRED_IMPORT_COMPARATOR);
+					//deferredImportSelectors包含SpringBootApplication中的AutoConfigurationImportSelector
 					deferredImports.forEach(handler::register);
+					//group为AutoConfigurationGroup
 					handler.processGroupImports();
 				}
 			} finally {

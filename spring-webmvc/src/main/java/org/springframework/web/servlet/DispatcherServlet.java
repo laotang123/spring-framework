@@ -1093,6 +1093,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				applyDefaultViewName(processedRequest, mv);
 				mappedHandler.applyPostHandle(processedRequest, response, mv);
 			} catch (Exception ex) {
+				// 接受异常，下面的processDispatchResult来处理
 				dispatchException = ex;
 			} catch (Throwable err) {
 				// As of 4.3, we're processing Errors thrown from handler methods as well,
@@ -1143,6 +1144,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		boolean errorView = false;
 
 		if (exception != null) {
+			//统一异常处理
 			if (exception instanceof ModelAndViewDefiningException) {
 				logger.debug("ModelAndViewDefiningException encountered", exception);
 				mv = ((ModelAndViewDefiningException) exception).getModelAndView();
