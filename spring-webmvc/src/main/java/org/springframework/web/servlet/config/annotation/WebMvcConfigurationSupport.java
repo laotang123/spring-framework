@@ -173,6 +173,7 @@ import org.springframework.web.util.UrlPathHelper;
  * @since 3.1
  * @see EnableWebMvc
  * @see WebMvcConfigurer
+ * 很多bean对象的初始化
  */
 public class WebMvcConfigurationSupport implements ApplicationContextAware, ServletContextAware {
 
