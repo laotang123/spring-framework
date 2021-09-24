@@ -565,11 +565,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
-			/**
-			 * Prepare this context for refreshing.
-			 * 设置close 属性为false
-			 * 设置active为true
-			 * 准备填充ApplicationContext中的environment属性为StandardEnvironment(系统属性)
+			/*
+			 Prepare this context for refreshing.
+			 设置close 属性为false
+			 设置active为true
+			 准备填充ApplicationContext中的environment属性为StandardEnvironment(系统属性)
 			 */
 			prepareRefresh();
 
@@ -666,7 +666,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		 * 如果有earlyListeners就存入到当前applicationListeners，然后清除earlyListeners
 		 * 如果没有就把applicationListeners作为earlyListeners
 		 * Store pre-refresh ApplicationListeners...
- 		 */
+		 */
 
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
@@ -918,7 +918,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * Finish the initialization of this context's bean factory,
 	 * initializing all remaining singleton beans.
 	 */
-		protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
+	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
 		// Initialize conversion service for this context.
 		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
 				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
