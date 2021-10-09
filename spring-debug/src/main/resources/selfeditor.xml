@@ -8,11 +8,21 @@
 		<property name="address" value="henan-zhengzhou-gaoxinqu"/>
 	</bean>
 
-<!--	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
-<!--		<property name="propertyEditorRegistrars">-->
-<!--			<list>-->
-<!--				<bean class="pers.ljf.spring.debug.selfeditor.MyPropertyEditorRegistrar"/>-->
-<!--			</list>-->
-<!--		</property>-->
-<!--	</bean>-->
+	<!--方式一-->
+	<!--	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+	<!--		<property name="propertyEditorRegistrars">-->
+	<!--			<list>-->
+	<!--				<bean class="pers.ljf.spring.debug.selfeditor.MyPropertyEditorRegistrar"/>-->
+	<!--			</list>-->
+	<!--		</property>-->
+	<!--	</bean>-->
+	<!--方式二-->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="pers.ljf.spring.debug.selfeditor.Address"
+					   value="pers.ljf.spring.debug.selfeditor.AddressPropertyEditor"/>
+			</map>
+		</property>
+	</bean>
 </beans>

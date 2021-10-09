@@ -5,34 +5,6 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<beans>
-		<import resource="spring-ljf.xml"/>
-
-		<!--bean的会进行覆盖-->
-		<bean name="person" class="pers.ljf.spring.debug.entity.Person" scope="prototype">
-			<property name="name" value="lili"/>
-			<property name="age" value="18"/>
-		</bean>
-		<!--		<bean name="personFactoryBean" class="pers.ljf.spring.debug.factory.PersonFactoryBean">-->
-
-		<!--		</bean>-->
-
-		<!--		<bean name="personAware" class="pers.ljf.spring.debug.entity.PersonAware">-->
-
-		<!--		</bean>-->
-
-		<!--		<bean name="personDestroy" class="pers.ljf.spring.debug.entity.PersonDestroy">-->
-		<!--			<property name="name" value="tom"/>-->
-		<!--			<property name="age" value="20"/>-->
-		<!--		</bean>-->
-
-		<!--		<bean name="personLifecycle" class="pers.ljf.spring.debug.entity.PersonLifecycle" init-method="initMethod"-->
-		<!--			  destroy-method="destroyMethod">-->
-		<!--			<property name="name" value="jim"/>-->
-		<!--			<property name="age" value="20"/>-->
-		<!--		</bean>-->
-
-		<!--		<bean name="student" class="pers.ljf.spring.debug.entity.Student"/>-->
-
-		<!--		<context:component-scan base-package="pers.ljf.spring.debug.entity"/>-->
+		<context:component-scan base-package="pers.ljf.spring.debug.configuration"/>
 	</beans>
 </beans>

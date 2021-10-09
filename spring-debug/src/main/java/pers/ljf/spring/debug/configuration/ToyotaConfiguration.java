@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @modified By：
  * @version: $ 1.0
  */
-@Configuration
+//@Configuration
 public class ToyotaConfiguration {
 	@Bean(name = "toyota")
 	public Toyota getToyota() {
