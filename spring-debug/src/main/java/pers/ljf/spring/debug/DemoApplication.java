@@ -4,6 +4,7 @@ package pers.ljf.spring.debug;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.convert.support.DefaultConversionService;
+import pers.ljf.spring.debug.aop.MyCalculator;
 import pers.ljf.spring.debug.configuration.Toyota;
 import pers.ljf.spring.debug.selfconverter.StudentConverter;
 
@@ -32,10 +33,9 @@ public class DemoApplication {
 	}
 
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = new MyClassPathXmlApplicationContext("application.xml");
-		System.out.println(context.getBean("toyota"));
-		Toyota toyota = context.getBean(Toyota.class);
-		System.out.println(toyota);
-		toyota.print();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("aop.xml");
+		MyCalculator calculator = context.getBean(MyCalculator.class);
+		System.out.println(calculator.add(1, 2));
+
 	}
 }
