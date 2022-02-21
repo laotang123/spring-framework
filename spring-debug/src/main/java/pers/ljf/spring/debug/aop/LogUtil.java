@@ -21,24 +21,24 @@ public class LogUtil {
 		Signature signature = joinPoint.getSignature();
 		//获取参数信息
 		Object[] args = joinPoint.getArgs();
-		System.out.println("log--" + signature.getName() + "方法开始执行，参数是：" + Arrays.toString(args));
+		System.out.println("before log--" + signature.getName() + "方法开始执行，参数是：" + Arrays.toString(args));
 		return 100;
 	}
 
 
 	public static void stop(JoinPoint joinPoint, Object result) {
 		Signature signature = joinPoint.getSignature();
-		System.out.println("log--" + signature.getName() + "方法执行结束，结果是：" + result);
+		System.out.println("after log--" + signature.getName() + "方法执行结束，结果是：" + result);
 	}
 
 	public static void logException(JoinPoint joinpoint, Exception e) {
 		Signature signature = joinpoint.getSignature();
-		System.out.println("log--" + signature.getName() + "方法抛出异常：" + e.getMessage());
+		System.out.println("after-throwing log--" + signature.getName() + "方法抛出异常：" + e.getMessage());
 	}
 
 	public static void logFinally(JoinPoint joinPoint) {
 		Signature signature = joinPoint.getSignature();
-		System.out.println("log--" + signature.getName() + "方法执行结束，over。。。");
+		System.out.println("after-returning log--" + signature.getName() + "方法执行结束，over。。。");
 	}
 
 	public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -47,15 +47,15 @@ public class LogUtil {
 
 		Object result = null;
 		try {
-			System.out.println("log--环绕通知start：" + signature.getName() + "方法开始执行，参数为：" + Arrays.toString(args));
+			System.out.println("around log--环绕通知start：" + signature.getName() + "方法开始执行，参数为：" + Arrays.toString(args));
 			//通过反射调用目标方法
 			result = proceedingJoinPoint.proceed(args);
-			System.out.println("log--环绕通知stop：" + signature.getName() + "方法执行结束");
+			System.out.println("around log--环绕通知stop：" + signature.getName() + "方法执行结束");
 		} catch (Throwable throwable) {
-			System.out.println("log--环绕异常通知：" + signature.getName() + "出现异常");
+			System.out.println("around log--环绕异常通知：" + signature.getName() + "出现异常");
 			throw throwable;
 		} finally {
-			System.out.println("log--环绕返回通知：" + signature.getName() + "方法返回执行结果是：" + result);
+			System.out.println("around log--环绕返回通知：" + signature.getName() + "方法返回执行结果是：" + result);
 		}
 		return result;
 	}
