@@ -321,7 +321,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * @return the registered singleton object
 	 */
 	public Object getSingleton(String beanName, ObjectFactory<?> singletonFactory) {
-		Assert.notNull(beanName, "Bean name must not be null");
+ 		Assert.notNull(beanName, "Bean name must not be null");
 		synchronized (this.singletonObjects) {
 			Object singletonObject = this.singletonObjects.get(beanName);
 			if (singletonObject == null) {

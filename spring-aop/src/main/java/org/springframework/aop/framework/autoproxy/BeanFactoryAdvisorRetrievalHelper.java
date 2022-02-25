@@ -79,7 +79,7 @@ public class BeanFactoryAdvisorRetrievalHelper {
 		}
 
 		List<Advisor> advisors = new ArrayList<>();
-		for (String name : advisorNames) {
+ 		for (String name : advisorNames) {
 			if (isEligibleBean(name)) {
 				if (this.beanFactory.isCurrentlyInCreation(name)) {
 					if (logger.isTraceEnabled()) {

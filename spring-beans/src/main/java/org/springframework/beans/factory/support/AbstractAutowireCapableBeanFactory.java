@@ -443,13 +443,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			throws BeansException {
 
 		Object result = existingBean;
-		for (BeanPostProcessor processor : getBeanPostProcessors()) {
+    		for (BeanPostProcessor processor : getBeanPostProcessors()) {
 			Object current = processor.postProcessAfterInitialization(result, beanName);
-			if (current == null) {
+  			if (current == null) {
 				return result;
 			}
 			result = current;
-		}
+ 		}
 		return result;
 	}
 
@@ -497,7 +497,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		if (logger.isTraceEnabled()) {
 			logger.trace("Creating instance of bean '" + beanName + "'");
 		}
-		RootBeanDefinition mbdToUse = mbd;
+  		RootBeanDefinition mbdToUse = mbd;
 
 		// Make sure bean class is actually resolved at this point, and
 		// clone the bean definition in case of a dynamically resolved Class
